@@ -12,10 +12,8 @@ return new class extends Migration {
 	{
 		Schema::create('notifications', function (Blueprint $table) {
 			$table->id();
-			$table->enum('type', ['like', 'comment']);
-			$table->foreignId('quote_id')->constrained()->cascadeOnDelete();
-			$table->foreignId('from_user_id')->constrained('users')->cascadeOnDelete();
-			$table->foreignId('to_user_id')->constrained('users')->cascadeOnDelete();
+			$table->morphs('notifiable');
+			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

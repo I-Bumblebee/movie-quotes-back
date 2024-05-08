@@ -14,7 +14,6 @@ return new class extends Migration {
 			$table->id();
 			$table->text('quote');
 			$table->string('image');
-			$table->string('likes_count')->default(0);
 			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('movie_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
