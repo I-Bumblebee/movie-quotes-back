@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SendEmailVerificationRequest;
 use App\Models\User;
-use App\Notifications\VerifyEmailNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +33,7 @@ class VerifyEmailController extends Controller
 			], 400);
 		}
 
-		$user->notify(new VerifyEmailNotification());
+		$user->sendEmailVerificationNotification();
 
 		return response()->json(['message' => 'Verification email sent.']);
 	}

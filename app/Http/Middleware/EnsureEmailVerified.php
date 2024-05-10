@@ -16,7 +16,7 @@ class EnsureEmailVerified
 		if ($user && !$user->hasVerifiedEmail()) {
 			return response()->json([
 				'errors'  => [
-					'email' => 'The email is not verified.',
+					'email' => trans('validations.email.not_verified'),
 				],
 			], 401);
 		}

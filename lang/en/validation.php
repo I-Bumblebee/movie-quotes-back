@@ -175,6 +175,7 @@ return [
 			'email'            => 'E-mail must be a valid email address.',
 			'unique'           => 'The email has already been taken.',
 			'already_verified' => 'The email has already been verified.',
+            'not_verified'     => 'The email is not verified.',
 		],
 		'name' => [
 			'required' => 'Please enter your name.',
