@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use Laravel\Socialite\Facades\Socialite;
 
 beforeEach(function () {
-	Artisan::call('migrate');
+	Artisan::call('migrate:fresh');
 });
 
 it('handles google callback', function () {
