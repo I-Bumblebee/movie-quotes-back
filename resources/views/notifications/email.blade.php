@@ -66,6 +66,21 @@
             margin-bottom: 40px;
             font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
         }
+
+        .verification-url {
+            color: #DDCCAA !important;
+            text-decoration: none !important;
+            font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+            display: block;
+        }
+
+        .contact-block {
+            color: white !important;
+            font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
+            display: block;
+            margin-top: 40px;
+        }
+
     </style>
 </head>
 <body>
@@ -80,9 +95,8 @@
             <a href="{{ $url }}" class="confirm-button" >{{ $button_text }}</a>
 
             <p>If clicking doesn't work, you can try copying and pasting it to your browser:</p>
-            <p>{{ $url }}</p>
-            <br>
-            <p>If you have any problems, please contact us: support@moviequotes.ge</p>
+            <a class="verification-url">{{ $url }}</a>
+            <a class="contact-block">If you have any problems, please contact us: support@moviequotes.ge</a>
             <p>MovieQuotes Crew</p>
         </section>
     </div>
