@@ -46,6 +46,8 @@ jobs:
             cd apps
             cd movie-quotes-back-luka-trapaidze
             git pull
+            composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+            php artisan migrate:fresh
           EOF
     
   
