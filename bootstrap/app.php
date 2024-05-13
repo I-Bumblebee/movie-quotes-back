@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Middleware\EnsureEmailVerified;
 use App\Http\Middleware\GuestMiddleware;
+use App\Http\Middleware\LocaleSetter;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,8 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
 	)
 	->withMiddleware(function (Middleware $middleware) {
 		$middleware->statefulApi();
+		$middleware->api(append: [
+			LocaleSetter::class,
+		]);
 		$middleware->alias([
-			'guest' => GuestMiddleware::class,
+			'guest'                 => GuestMiddleware::class,
+			'ensure-email-verified' => EnsureEmailVerified::class,
 		]);
 	})
 	->withExceptions(function (Exceptions $exceptions) {
