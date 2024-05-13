@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OAuthController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,11 @@ Route::middleware('guest')->group(function () {
 		Route::post('/login', 'login')->middleware('ensure-email-verified')->name('login');
 		Route::post('/register', 'register')->name('register');
 	});
+
+    Route::controller(PasswordResetController::class)->group(function () {
+        Route::post('/forgot-password', 'sendResetLink')->name('password.email');
+        Route::post('/reset-password', 'resetPassword')->name('password.update');
+    });
 });
 
 Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
