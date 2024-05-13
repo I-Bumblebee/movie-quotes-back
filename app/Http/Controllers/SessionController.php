@@ -28,7 +28,6 @@ class SessionController extends Controller
 
 		if (!Auth::attempt($credentials, $remember)) {
 			return response()->json([
-				'message' => 'The provided Email or Password is incorrect.',
 				'errors'  => [
 					'email'    => trans('auth.failed'),
 					'password' => trans('auth.failed'),
@@ -37,17 +36,12 @@ class SessionController extends Controller
 		}
 
 		return response()->json([
-			'message' => 'Logged in.',
 			'user'    => UserResource::make(Auth::user()),
 		]);
 	}
 
 	public function logout(): JsonResponse
 	{
-		if (!Auth::check()) {
-			return response()->json(['message' => 'Not logged in.'], 401);
-		}
-
 		Auth::guard('web')->logout();
 		return response()->json(['message' => 'Logged out.']);
 	}

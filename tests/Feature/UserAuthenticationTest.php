@@ -57,7 +57,3 @@ it('does not allow login with unregistered email', function () {
 		'password' => 'password',
 	])->assertStatus(422);
 });
-
-it('does not allow logout when not logged in', function () {
-	$this->postJson(route('logout'))->assertStatus(401);
-});
