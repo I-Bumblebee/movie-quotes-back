@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SendEmailVerificationRequest;
+use App\Jobs\SendEmailVerificationLink;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,7 @@ class VerifyEmailController extends Controller
 			], 400);
 		}
 
-		$user->sendEmailVerificationNotification();
+		dispatch(new SendEmailVerificationLink($user));
 
 		return response()->json(['message' => 'Verification email sent.']);
 	}
