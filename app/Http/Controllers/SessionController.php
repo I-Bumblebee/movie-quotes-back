@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Resources\UserResource;
+use App\Jobs\SendEmailVerificationLink;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,7 @@ class SessionController extends Controller
 	{
 		$user = User::create($request->validated());
 
-		event(new Registered($user));
+		dispatch(new SendEmailVerificationLink($user));
 
 		return response()->json(['message' => 'User registered!'], 201);
 	}

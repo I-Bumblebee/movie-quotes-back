@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\SendResetLinkRequest;
+use App\Jobs\SendPasswordResetLink;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
@@ -15,17 +16,9 @@ class PasswordResetController extends Controller
 {
 	public function sendResetLink(SendResetLinkRequest $request): JsonResponse
 	{
-		$status = Password::sendResetLink($request->validated());
+		dispatch(new SendPasswordResetLink($request->validated()['email']));
 
-		if ($status == Password::RESET_LINK_SENT) {
-			return response()->json(['message' => 'Password reset link sent.']);
-		} else {
-			return response()->json([
-				'errors'  => [
-					'email' => trans('passwords.email.not_sent'),
-				],
-			], 422);
-		}
+		return response()->json(['message' => 'Password reset link sent.']);
 	}
 
 	public function resetPassword(ResetPasswordRequest $request): JsonResponse
