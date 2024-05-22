@@ -17,7 +17,7 @@ class OAuthController extends Controller
 		]);
 	}
 
-	public function getGoogleCallback(): JsonResponse
+	public function handleGoogleCallback(): JsonResponse
 	{
 		$googleUser = Socialite::driver('google')->stateless()->user();
 
@@ -26,11 +26,14 @@ class OAuthController extends Controller
 		], [
 			'name'              => $googleUser->name,
 			'email'             => $googleUser->email,
-			'image'             => $googleUser->avatar,
 			'email_verified_at' => now(),
 		]);
 
-		Auth::login($user);
+		if ($user->wasRecentlyCreated && isset($googleUser->avatar)) {
+			$user->addMediaFromUrl($googleUser->avatar)
+				->toMediaCollection('profile_images');
+		}
+		Auth::login($user, true);
 
 		return response()->json([
 			'user' => UserResource::make($user),
