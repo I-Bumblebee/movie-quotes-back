@@ -15,7 +15,6 @@ it('handles google callback', function () {
 		'id'           => '12345',
 		'name'         => 'Test User',
 		'email'        => 'test@example.com',
-		'avatar'       => 'https://example.com/avatar.jpg',
 	]);
 
 	$response = $this->getJson(route('oauth.google.callback'));

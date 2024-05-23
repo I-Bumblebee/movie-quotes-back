@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmailNotification;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-	use HasFactory, Notifiable;
+	use HasFactory, Notifiable, InteractsWithMedia;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -49,15 +50,6 @@ class User extends Authenticatable
 			'email_verified_at' => 'datetime',
 			'password'          => 'hashed',
 		];
-	}
-
-	public function getImageAttribute($value): string
-	{
-		if ($value) {
-			return str_starts_with($value, 'http') ? $value : Storage::url($value);
-		}
-
-		return Storage::url('images/default_user.jpg');
 	}
 
 	public function sendEmailVerificationNotification(): void
