@@ -6,6 +6,7 @@ use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
@@ -60,5 +61,30 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 	public function sendPasswordResetNotification($token): void
 	{
 		$this->notify(new ResetPasswordNotification($token));
+	}
+
+	public function notifications(): HasMany
+	{
+		return $this->hasMany(Notification::class);
+	}
+
+	public function comments(): HasMany
+	{
+		return $this->hasMany(Comment::class);
+	}
+
+	public function likes(): HasMany
+	{
+		return $this->hasMany(Like::class);
+	}
+
+	public function quotes(): HasMany
+	{
+		return $this->hasMany(Quote::class);
+	}
+
+	public function movies(): HasMany
+	{
+		return $this->hasMany(Movie::class);
 	}
 }
