@@ -30,7 +30,10 @@ class MovieFactory extends Factory
 				'ka' => $fakerKa->realText(400),
 			],
 			'release_year'   => $fakerEn->year(),
-			'director_name'  => $fakerEn->name(),
+			'director_name'  => [
+				'en' => $fakerEn->name(),
+				'ka' => $fakerKa->name(),
+			],
 			'user_id'        => function () {
 				return User::factory()->create()->id;
 			},
