@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SessionController;
@@ -32,4 +34,17 @@ Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', [UserController::class, 'user'])->name('user');
 	Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+
+	Route::prefix('movies')->controller(MovieController::class)->group(function () {
+		Route::get('/', 'index')->name('movies.index');
+		Route::get('/{movie}', 'show')->name('movies.show');
+		Route::get('/{movie}/edit', 'edit')->name('movies.edit');
+
+		Route::post('/', 'store')->name('movies.store');
+
+		Route::put('/{movie}', 'update')->name('movies.update');
+		Route::delete('/{movie}', 'destroy')->name('movies.destroy');
+	});
 });
+
+Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
