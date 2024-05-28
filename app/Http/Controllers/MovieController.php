@@ -27,7 +27,7 @@ class MovieController extends Controller
 			->withCount('quotes')
 			->paginate(25);
 
-		return response()->json(new MovieCollection($movies));
+		return MovieCollection::make($movies)->response();
 	}
 
 	/**
@@ -37,27 +37,9 @@ class MovieController extends Controller
 	{
 		$this->authorize('view', $movie);
 
-		$movie->load([
-			'genres',
-			'quotes' => function ($query) {
-				$query->withCount('likes', 'comments');
-			},
-		])->loadCount('quotes');
+		$movie->load('genres');
 
-		return response()->json([
-			'movie'  => new MovieResource($movie),
-			'quotes' => QuoteResource::collection($movie->quotes),
-		]);
-	}
-
-	/**
-	 * @throws AuthorizationException
-	 */
-	public function edit(Movie $movie): JsonResponse
-	{
-		$this->authorize('update', $movie);
-
-		return response()->json(new MovieResource($movie));
+		return MovieResource::make($movie)->response();
 	}
 
 	public function store(StoreMovieRequest $request): JsonResponse
@@ -69,7 +51,7 @@ class MovieController extends Controller
 		$movie->addMediaFromRequest('poster')
 			->toMediaCollection('posters');
 
-		return response()->json(new MovieResource($movie), 201);
+		return MovieResource::make($movie)->response()->setStatusCode(201);
 	}
 
 	/**
@@ -91,7 +73,7 @@ class MovieController extends Controller
 				->toMediaCollection('posters');
 		}
 
-		return response()->json(new MovieResource($movie));
+		return MovieResource::make($movie)->response();
 	}
 
 	/**
@@ -104,5 +86,12 @@ class MovieController extends Controller
 		$movie->delete();
 
 		return response()->json(null, 204);
+	}
+
+	public function quotes(Movie $movie): JsonResponse
+	{
+		$quotes = $movie->quotes()->withCount('likes', 'comments')->get();
+
+		return QuoteResource::collection($quotes)->response();
 	}
 }

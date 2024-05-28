@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::prefix('movies')->controller(MovieController::class)->group(function () {
 		Route::get('/', 'index')->name('movies.index');
 		Route::get('/{movie}', 'show')->name('movies.show');
-		Route::get('/{movie}/edit', 'edit')->name('movies.edit');
+		Route::get('/{movie}/quotes', 'quotes')->name('movies.quotes');
 
 		Route::post('/', 'store')->name('movies.store');
 
