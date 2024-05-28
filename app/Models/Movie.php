@@ -15,7 +15,7 @@ class Movie extends Model implements HasMedia
 {
 	use HasFactory, InteractsWithMedia, HasTranslations;
 
-	public array $translatable = ['title', 'description'];
+	public array $translatable = ['title', 'description', 'director_name'];
 
 	protected $fillable = [
 		'title',
@@ -24,6 +24,13 @@ class Movie extends Model implements HasMedia
 		'director_name',
 		'user_id',
 	];
+
+	protected static function booted(): void
+	{
+		static::addGlobalScope('sortById', function ($builder) {
+			$builder->orderBy('id', 'desc');
+		});
+	}
 
 	public function user(): BelongsTo
 	{
