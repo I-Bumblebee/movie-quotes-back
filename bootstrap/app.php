@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
 	)
 	->withMiddleware(function (Middleware $middleware) {
 		$middleware->statefulApi();
-		$middleware->api(append: [
+		$middleware->api(prepend: [
 			LocaleSetter::class,
 		]);
 		$middleware->alias([

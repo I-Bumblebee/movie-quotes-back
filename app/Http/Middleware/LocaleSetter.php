@@ -11,7 +11,9 @@ class LocaleSetter
 {
 	public function handle(Request $request, Closure $next): Response
 	{
-		App::setLocale($request->cookie('locale'));
+		$locale = $request->cookie('locale') ?: config('app.locale');
+
+		App::setLocale($locale);
 
 		return $next($request);
 	}
