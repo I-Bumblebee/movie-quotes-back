@@ -23,7 +23,7 @@ it('updates the user', function () {
 		'image'                 => $file,
 	];
 
-	$response = $this->actingAs($user)->postJson(route('user.update'), $data);
+	$response = $this->actingAs($user)->patchJson(route('user.update'), $data);
 	$response->assertStatus(200);
 
 	$this->assertDatabaseHas('users', [
@@ -39,7 +39,7 @@ it('updates the user', function () {
 it('fails validation', function ($data, $expectedErrors) {
 	$user = User::factory()->create();
 
-	$response = $this->actingAs($user)->postJson(route('user.update'), $data);
+	$response = $this->actingAs($user)->patchJson(route('user.update'), $data);
 	$response->assertStatus(422);
 	$response->assertJsonValidationErrors($expectedErrors);
 })->with('validationData');
@@ -47,7 +47,7 @@ it('fails validation', function ($data, $expectedErrors) {
 it('does not allow access to user update without being authenticated', function () {
 	$user = User::factory()->create();
 
-	$response = $this->postJson(route('user.update'), []);
+	$response = $this->patchJson(route('user.update'), []);
 	$response->assertStatus(401);
 });
 
@@ -55,7 +55,7 @@ it('does not allow duplicate usernames', function () {
 	$user1 = User::factory()->create(['name' => 'TestName']);
 	$user2 = User::factory()->create();
 
-	$response = $this->actingAs($user2)->postJson(route('user.update'), ['name' => 'TestName']);
+	$response = $this->actingAs($user2)->patchJson(route('user.update'), ['name' => 'TestName']);
 	$response->assertStatus(422);
 	$response->assertJsonValidationErrors('name');
 });

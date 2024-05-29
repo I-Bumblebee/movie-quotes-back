@@ -33,7 +33,7 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', [UserController::class, 'user'])->name('user');
-	Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+	Route::patch('/user', [UserController::class, 'update'])->name('user.update');
 
 	Route::prefix('movies')->controller(MovieController::class)->group(function () {
 		Route::get('/', 'index')->name('movies.index');

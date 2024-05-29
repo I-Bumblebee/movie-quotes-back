@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserResource extends JsonResource
 {
@@ -18,7 +19,7 @@ class UserResource extends JsonResource
 			'id'          => $this->id,
 			'name'        => $this->name,
 			'email'       => $this->email,
-			'image'       => $this->getFirstMediaUrl('profile_images'),
+			'image'       => $this->getFirstMediaUrl('profile_images') ?: Storage::url('images/default-avatar.jpg'),
 			'oauth'       => (bool)$this->google_id,
 		];
 	}
