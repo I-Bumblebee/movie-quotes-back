@@ -22,6 +22,13 @@ class Quote extends Model implements HasMedia
 		'movie_id',
 	];
 
+    public static function booted(): void
+    {
+        static::addGlobalScope('sort', function ($builder) {
+            $builder->orderBy('id', 'desc');
+        });
+    }
+
 	public function comments(): HasMany
 	{
 		return $this->hasMany(Comment::class);

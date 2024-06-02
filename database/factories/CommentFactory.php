@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Quote;
 use App\Models\User;
-use Faker\Factory as FakerFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,19 +18,14 @@ class CommentFactory extends Factory
 	 */
 	public function definition(): array
 	{
-		$fakerEn = FakerFactory::create();
-		$fakerKa = FakerFactory::create('ka_GE');
 		return [
-            'comment' => [
-                'en' => $fakerEn->realText(100),
-                'ka' => $fakerKa->realText(100),
-            ],
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'quote_id' => function () {
-                return Quote::factory()->create()->id;
-            },
+			'comment' => $this->faker->text,
+			'user_id' => function () {
+				return User::factory()->create()->id;
+			},
+			'quote_id' => function () {
+				return Quote::factory()->create()->id;
+			},
 		];
 	}
 }

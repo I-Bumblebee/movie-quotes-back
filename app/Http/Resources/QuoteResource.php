@@ -16,11 +16,11 @@ class QuoteResource extends JsonResource
 	public function toArray(Request $request): array
 	{
 		return [
-			'id'       => $this->id,
-			'quote'    => $this->quote,
-			'image'    => $this->getFirstMediaUrl('quote_images') ?: Storage::url('images/default-quote-cover.jpg'),
-			'likes'    => $this->likes_count,
-			'comments' => $this->comments_count,
+			'id'             => $this->id,
+			'quote'          => $this->quote,
+			'image'          => $this->getFirstMediaUrl('quote_images') ?: Storage::url('images/default-quote-cover.jpg'),
+			'likes_count'    => $this->likes_count,
+			'comments_count' => $this->comments_count,
 		];
 	}
 }
