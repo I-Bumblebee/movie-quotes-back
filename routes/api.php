@@ -4,6 +4,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifyEmailController;
@@ -45,6 +46,17 @@ Route::middleware('auth:sanctum')->group(function () {
 		Route::put('/{movie}', 'update')->name('movies.update');
 		Route::delete('/{movie}', 'destroy')->name('movies.destroy');
 	});
+
+	Route::prefix('quotes')->group(function () {
+		Route::controller(QuoteController::class)->group(function () {
+			Route::get('/', 'index')->name('quotes.index');
+			Route::get('/{quote}', 'show')->name('quotes.show');
+			Route::post('/', 'store')->name('quotes.store');
+			Route::patch('/{quote}', 'update')->name('quotes.update');
+            Route::delete('/{quote}', 'destroy')->name('quotes.destroy');
+		});
+	});
+
 });
 
 Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');

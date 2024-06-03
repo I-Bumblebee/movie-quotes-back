@@ -10,9 +10,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Comment extends Model
 {
-	use HasFactory, HasTranslations;
-
-	public array $translatable = ['comment'];
+	use HasFactory;
 
 	protected $fillable = [
 		'comment',
