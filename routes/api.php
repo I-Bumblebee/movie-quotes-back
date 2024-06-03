@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QuoteController;
@@ -55,8 +58,20 @@ Route::middleware('auth:sanctum')->group(function () {
 			Route::patch('/{quote}', 'update')->name('quotes.update');
             Route::delete('/{quote}', 'destroy')->name('quotes.destroy');
 		});
+
+		Route::controller(CommentController::class)->group(function () {
+			Route::post('/{quote}/comments', 'addComment')->name('quotes.comments.add');
+		});
+		Route::controller(LikeController::class)->group(function () {
+			Route::post('/{quote}/like', 'addLike')->name('quotes.like.add');
+			Route::delete('/{quote}/like', 'removeLike')->name('quotes.like.remove');
+		});
 	});
 
+	Route::prefix('notifications')->controller(NotificationController::class)->group(function () {
+		Route::get('/', 'index')->name('notifications.index');
+		Route::patch('/mark-as-read', 'markAsRead')->name('notifications.markAsRead');
+	});
 });
 
 Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
