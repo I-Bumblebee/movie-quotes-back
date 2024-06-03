@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
-use App\Http\Resources\DetailedQuoteResource;
+use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -26,7 +26,7 @@ class QuoteController extends Controller
 			->withCount('comments', 'likes')
 			->paginate(25);
 
-		return DetailedQuoteResource::collection($quotes)->response();
+		return QuoteResource::collection($quotes)->response();
 	}
 
 	public function show(Quote $quote): JsonResponse
@@ -34,7 +34,7 @@ class QuoteController extends Controller
 		$quote->load('comments', 'user', 'comments.user', 'likes')
 			->loadCount('comments', 'likes');
 
-		return DetailedQuoteResource::make($quote)->response();
+		return QuoteResource::make($quote)->response();
 	}
 
 	public function store(StoreQuoteRequest $request): JsonResponse
@@ -44,7 +44,7 @@ class QuoteController extends Controller
 		$quote->addMediaFromRequest('image')
 			->toMediaCollection('quote_images');
 
-		return DetailedQuoteResource::make($quote)->response()->setStatusCode(201);
+		return QuoteResource::make($quote)->response()->setStatusCode(201);
 	}
 
 	/**
@@ -75,6 +75,6 @@ class QuoteController extends Controller
 				->toMediaCollection('quote_images');
 		}
 
-		return DetailedQuoteResource::make($quote)->response();
+		return QuoteResource::make($quote)->response();
 	}
 }

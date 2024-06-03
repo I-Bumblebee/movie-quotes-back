@@ -50,8 +50,7 @@ it('filters quotes by content', function () {
 		->getJson(route('quotes.index', ['filter[quote]' => 'Quote']));
 
 	$response->assertJsonCount(1, 'data');
-	$response->assertJsonFragment(['id' => $quote->id]);
-	$response->assertJsonMissing(['id' => $quote2->id]);
+	$response->assertJsonPath('data.0.id', $quote->id);
 });
 
 it('filters quotes by movie title', function () {
@@ -63,8 +62,7 @@ it('filters quotes by movie title', function () {
 		->getJson(route('quotes.index', ['filter[movie.title]' => 'Movie']));
 
 	$response->assertJsonCount(1, 'data');
-	$response->assertJsonFragment(['id' => $quote->id]);
-	$response->assertJsonMissing(['id' => $quote2->id]);
+	$response->assertJsonPath('data.0.id', $quote->id);
 });
 
 it('shows a quote', function () {

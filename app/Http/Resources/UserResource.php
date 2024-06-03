@@ -18,9 +18,14 @@ class UserResource extends JsonResource
 		return [
 			'id'          => $this->id,
 			'name'        => $this->name,
-			'email'       => $this->email,
 			'image'       => $this->getFirstMediaUrl('profile_images') ?: Storage::url('images/default-avatar.jpg'),
-			'oauth'       => (bool)$this->google_id,
+			$this->mergeWhen(
+				$request->routeIs('user'),
+				[
+					'email' => $this->email,
+					'oauth' => $this->oauth,
+				]
+			),
 		];
 	}
 }
