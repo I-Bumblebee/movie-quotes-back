@@ -60,11 +60,11 @@ Route::middleware('auth:sanctum')->group(function () {
 		});
 
 		Route::controller(CommentController::class)->group(function () {
-			Route::post('/{quote}/comments', 'addComment')->name('quotes.comments.add');
+			Route::post('/{quote}/comments', 'store')->name('quotes.comments.store');
 		});
 		Route::controller(LikeController::class)->group(function () {
-			Route::post('/{quote}/like', 'addLike')->name('quotes.like.add');
-			Route::delete('/{quote}/like', 'removeLike')->name('quotes.like.remove');
+			Route::post('/{quote}/like', 'store')->name('quotes.like.store');
+			Route::delete('/{quote}/like', 'destroy')->name('quotes.like.destroy');
 		});
 	});
 

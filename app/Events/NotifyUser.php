@@ -18,13 +18,10 @@ class NotifyUser implements ShouldDispatchAfterCommit, ShouldBroadcast
 {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-	public User $recipient;
-
 	public Notification $notification;
 
-	public function __construct(Like|Comment $interaction, User $recipient)
+	public function __construct(Like|Comment $interaction, public User $recipient)
 	{
-		$this->recipient = $recipient;
 		$this->notification = Notification::create([
 			'user_id'         => $recipient->id,
 			'notifiable_id'   => $interaction->id,

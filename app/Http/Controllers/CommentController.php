@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Events\NotifyUser;
 use App\Models\Quote;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-	public function addComment(Quote $quote, Request $request): JsonResponse
+	public function store(Quote $quote, FormRequest $request): JsonResponse
 	{
 		$comment = $quote->comments()->create([
 			'comment' => $request->input('comment'),

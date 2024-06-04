@@ -15,7 +15,7 @@ beforeEach(function () {
 it('should add a comment to a quote and dispatch notification', function () {
 	Event::fake();
 	$response = $this->actingAs($this->user)
-		->postJson(route('quotes.comments.add', $this->quote->id), [
+		->postJson(route('quotes.comments.store', $this->quote->id), [
 			'comment' => 'This is a comment',
 		]);
 
@@ -30,5 +30,3 @@ it('should add a comment to a quote and dispatch notification', function () {
 	]);
 	Event::assertDispatched(NotifyUser::class);
 });
-
-

@@ -16,7 +16,7 @@ it('should add a like to a quote and dispatch notification', function () {
 	Event::fake();
 
 	$response = $this->actingAs($this->user)
-		->postJson(route('quotes.like.add', $this->quote->id));
+		->postJson(route('quotes.like.store', $this->quote->id));
 
 	$response->assertOk();
 	$this->assertDatabaseHas('likes', [
@@ -33,7 +33,7 @@ it('should remove a like from a quote', function () {
 	$this->user->likedQuotes()->attach($this->quote->id);
 
 	$response = $this->actingAs($this->user)
-		->deleteJson(route('quotes.like.remove', $this->quote->id));
+		->deleteJson(route('quotes.like.destroy', $this->quote->id));
 
 	$response->assertOk();
 	$this->assertDatabaseMissing('likes', [
