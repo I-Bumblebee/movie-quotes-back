@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MarkNotificationsReadRequest;
 use App\Http\Resources\NotificationResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
@@ -18,7 +18,7 @@ class NotificationController extends Controller
 		return NotificationResource::collection($notifications)->response();
 	}
 
-	public function markAsRead(Request $request): JsonResponse
+	public function markAsRead(MarkNotificationsReadRequest $request): JsonResponse
 	{
 		auth()->user()->notifications()
 			->whereIn('id', $request->input('notification_ids'))
