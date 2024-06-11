@@ -20,10 +20,10 @@ class UserResource extends JsonResource
 			'name'        => $this->name,
 			'image'       => $this->getFirstMediaUrl('profile_images') ?: Storage::url('images/default-avatar.jpg'),
 			$this->mergeWhen(
-				$request->routeIs('user'),
+				$request->routeIs('user', 'login', 'oauth.google.callback', 'user.update'),
 				[
 					'email' => $this->email,
-					'oauth' => $this->oauth,
+					'oauth' => $this->google_id !== null,
 				]
 			),
 		];
