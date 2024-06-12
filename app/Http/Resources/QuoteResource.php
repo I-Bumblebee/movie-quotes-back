@@ -29,10 +29,7 @@ class QuoteResource extends JsonResource
 					'release_year' => $this->movie->release_year,
 				],
 			),
-			'liked' => $this->when(
-				$request->routeIs('quotes.index'),
-				$this->likes->contains('user_id', $request->user()->id)
-			),
+			'liked' => $this->likes->contains('user_id', $request->user()->id),
 		];
 	}
 }
