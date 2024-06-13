@@ -15,7 +15,9 @@ class LikeController extends Controller
 			'quote_id' => $quote->id,
 		]);
 
-		NotifyUser::dispatch($like, $quote->user);
+		if ($quote->user->id !== $request->user()->id) {
+			NotifyUser::dispatch($like, $quote->user);
+		}
 
 		return response()->json(['message' => 'Like added successfully']);
 	}

@@ -16,8 +16,9 @@ class CommentController extends Controller
 			'user_id' => $request->user()->id,
 		]);
 
-		NotifyUser::dispatch($comment, $quote->user);
-
+		if ($quote->user->id !== $request->user()->id) {
+			NotifyUser::dispatch($comment, $quote->user);
+		}
 		return response()->json(['message' => 'Comment added successfully']);
 	}
 }

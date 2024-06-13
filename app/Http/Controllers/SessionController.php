@@ -23,7 +23,7 @@ class SessionController extends Controller
 
 	public function login(LoginUserRequest $request): JsonResponse
 	{
-		$credentials = $request->only(['email', 'password']);
+		$credentials = $request->only(['email', 'password', 'name']);
 		$remember = $request->boolean('remember');
 
 		if (!Auth::attempt($credentials, $remember)) {
