@@ -22,7 +22,6 @@ class MovieResource extends JsonResource
 			'release_year'=> $this->release_year,
 			'director'    => $this->director_name,
 			'poster'      => $this->getFirstMediaUrl('posters') ?: Storage::url('images/default-poster.jpg'),
-			'quotes_count'=> $this->quotes_count,
 			'genres'      => GenreResource::collection($this->genres),
 		];
 

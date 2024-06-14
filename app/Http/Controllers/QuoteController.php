@@ -75,6 +75,8 @@ class QuoteController extends Controller
 				->toMediaCollection('quote_images');
 		}
 
+		$quote->loadCount('comments', 'likes');
+
 		return QuoteResource::make($quote)->response();
 	}
 }

@@ -13,8 +13,8 @@ class QuoteResource extends JsonResource
 		return [
 			'id'             => $this->id,
 			'image'          => $this->getFirstMediaUrl('quote_images') ?: Storage::url('images/default-quote-cover.jpg'),
-			'likes_count'    => $this->whenNotNull($this->likes_count),
-			'comments_count' => $this->whenNotNull($this->comments_count),
+			'likes_count'    => $this->whenNotNull($this->likes_count, 0),
+			'comments_count' => $this->whenNotNull($this->comments_count, 0),
 			'comments'       => CommentResource::collection($this->whenLoaded('comments')),
 			'user'           => UserResource::make($this->user),
 			$this->mergeWhen(
