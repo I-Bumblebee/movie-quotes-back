@@ -1,66 +1,176 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div style="display:flex; align-items: center">
+  <img src="readme/assets/logo.svg" alt="drawing" width="100" style="margin-right: 20px; margin-top: 35px" />
+  <h1 style="position:relative; top: -6px" >Movie Quotes API</h1>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+Movie Quotes API is a RESTful API that provides a collection of movie quotes. It allows users to create, read, update, delete quotes and interact with each other through real time notifications. The API also provides endpoints for user authentication and authorization. The API is built using Laravel, a PHP web application framework.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#
+### Table of Contents
+* [Prerequisites](#prerequisites)
+* [Tech Stack](#tech-stack)
+* [Getting Started](#getting-started)
+* [Migrations](#migration)
+* [Development](#development)
+* [Database Design Diagram](#database-design-diagram)
+* [API Documentation](#api-documentation)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#
+### Prerequisites
 
-## Learning Laravel
+* <img src="readme/assets/php.svg" alt="php-logo" width="35" style="position: relative; top: 10px;margin-right:1rem;" />*PHP@8.2*
+* <img src="readme/assets/mysql.svg" alt="mysql-logo" width="35" style="position: relative; top: 4px;margin-right:1rem;" />*MYSQL@8.0.36*
+* <img src="readme/assets/composer.svg" alt="composer-logo" width="35" style="position: relative; top: 6px;margin-right:1rem;" />*composer@2.7.1*
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#
+### Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* <img src="readme/assets/laravel.svg" height="18" style="position: relative; top: 4px; margin-right:1rem;" />[Laravel@11.x](https://laravel.com/docs/11.x) - back-end framework
+* <img src="readme/assets/reverb.svg" height="30"  style="position: relative; top: 9px;margin-right:0.8rem;margin-left:-5px;" />[Laravel Reverb@beta](https://laravel.com/docs/11.x/reverb) - package for broadcasting live notifications
+* <img src="readme/assets/spatie.png" height="20" style="position: relative; top: 4px;margin-right:1rem;" />[Spatie Translatable@6.0](https://spatie.be/docs/laravel-translatable/v6) - package for API authentication
+* <img src="readme/assets/spatie.png" height="20" style="position: relative; top: 4px;margin-right:1rem;" />[Spatie Query Builder@5.8](https://spatie.be/docs/laravel-query-builder/v5/introduction) - package for API query building
+* <img src="readme/assets/spatie.png" height="20" style="position: relative; top: 4px;margin-right:1rem;" />[Spatie Media library@11.4](https://spatie.be/docs/laravel-medialibrary/v11/introduction) - package for media file management
+* <img src="readme/assets/sanctum.png" height="19" style="position: relative; top: 4px;margin-right:1rem;" />[Laravel Sanctum@4.0](https://laravel.com/docs/11.x/sanctum) - package for API authentication
+* <img src="readme/assets/pest.svg" height="15"  style="position: relative; margin-right:0.8rem;" />[Laravel Pest@2.34](https://pestphp.com/docs/installation) - package for testing
+* <img src="readme/assets/socialite.png" height="20" style="position: relative; top: 4px; margin-right:1rem;" />[Laravel Socialite@5.14.0](https://laravel.com/docs/11.x/socialite) - package for OAuth authentication
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+#
+### Getting Started
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1 . Clone the repository
+```sh
+git clone https://github.com/RedberryInternship/movie-quotes-back-luka-trapaidze.git
+```
+   
+2 . Next step requires you to run *composer install* in order to install all the dependencies.
+ ```sh
+ composer install
+ ```
+   
+3 . Now we need to set our env file. Go to the root of your project and execute this command.
+```sh
+cp .env.example .env
+```
+   
+4 . And now you should provide **.env** file all the necessary environment variables:
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+####
+**MYSQL:**
+>DB_CONNECTION=mysql
 
-## Contributing
+>DB_HOST=127.0.0.1
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+>DB_PORT=3306
 
-## Code of Conduct
+>DB_DATABASE=*****
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+>DB_USERNAME=*****
 
-## Security Vulnerabilities
+>DB_PASSWORD=*****
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+####
+**FILESYSTEM:**
+>FILESYSTEM_DISK=public
 
-## License
+####
+**MAIL:**
+>MAIL_MAILER=smtp
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+>MAIL_HOST=...
+
+>MAIL_PORT=...
+
+>MAIL_USERNAME=...
+
+>MAIL_PASSWORD=*****
+
+>MAIL_ENCRYPTION=...
+
+>MAIL_FROM_ADDRESS=...
+
+####
+**Sanctum:**
+>SANCTUM_STATEFUL_DOMAINS=...
+
+>SESSION_DOMAIN=...
+
+####
+**Reverb:**
+>BROADCAST_CONNECTION=reverb
+
+>BROADCAST_DRIVER=reverb
+
+>REVERB_APP_ID=*****
+
+>REVERB_APP_KEY=*****
+
+>REVERB_APP_SECRET=*****
+
+>REVERB_HOST=...
+
+>REVERB_PORT=...
+
+>REVERB_SCHEME=http | https
+
+####
+**Socialite:**
+>GOOGLE_CLIENT_ID=*****
+
+>GOOGLE_CLIENT_SECRET=*****
+
+>GOOGLE_REDIRECT=...
+
+after setting up **.env** file, execute:
+```sh
+php artisan config:cache
+```
+in order to cache environment variables.
+
+Now execute in the root of you project following:
+ ```sh
+php artisan key:generate
+ ```
+Which generates auth key.
+
+##### Now, you should be good to go!
+
+
+#
+### Migration
+if you've completed getting started section, then migrating database if fairly simple process, just execute:
+```sh
+php artisan migrate
+```
+
+
+#
+### Development
+
+You can run Laravel's built-in development server by executing:
+
+```sh
+php artisan serve
+```
+
+
+
+
+#
+### Database Design Diagram
+
+
+[Database Design Diagram](https://drawsql.app/teams/solo-176/diagrams/movie-quotes "drawsql.app")
+
+
+
+
+#
+
+### API Documentation
+
+[API Documentation](https://documenter.getpostman.com/view/33136231/2sA3XLEPPg#c8264a92-1ed2-4593-afdb-d7f9556603cd "Postman")
